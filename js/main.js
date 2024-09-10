@@ -1,182 +1,65 @@
 let categories = [
-    {
-      title: "Pessoal",
-      img: "boy.png",
-    },
-    {
-      title: "Trabalho",
-      img: "briefcase.png",
-    },
-    {
-      title: "Compras",
-      img: "shopping.png",
-    },
-    {
-      title: "Coding",
-      img: "web-design.png",
-    },
-    {
-      title: "Saúde",
-      img: "healthcare.png",
-    },
-    {
-      title: "Fitness",
-      img: "dumbbell.png",
-    },
-    {
-      title: "Educação",
-      img: "education.png",
-    },
-    {
-      title: "Finança",
-      img: "saving.png",
-    },
-  ];
-  
-  let tasks = [
-    {
-      id: 1,
-      task: "Ir no mercado",
-      category: "Compras",
-      completed: false,
-    },
-    {
-      id: 2,
-      task: "Ler mais um capitulo de HarryPotter",
-      category: "Pessoal",
-      completed: false,
-    },
-    {
-      id: 3,
-      task: "Treinar para apresentação",
-      category: "Trabalho",
-      completed: false,
-    },
-    {
-      id: 4,
-      task: "Praticar javascript",
-      category: "Coding",
-      completed: false,
-    },
-    {
-      id: 5,
-      task: "Meditar",
-      category: "Saúde",
-      completed: false,
-    },
-    {
-      id: 6,
-      task: "Fazer 20 min de cardio",
-      category: "Fitness",
-      completed: false,
-    },
-    {
-      id: 7,
-      task: "Assistir a palestra online",
-      category: "Educação",
-      completed: false,
-    },
-    {
-      id: 8,
-      task: "Pagar conta de internet",
-      category: "Finança",
-      completed: false,
-    },
-    {
-      id: 9,
-      task: "Fazer compras do mês",
-      category: "Compras",
-      completed: false,
-    },
-    {
-      id: 10,
-      task: "Programar a semana na agenda",
-      category: "Pessoal",
-      completed: false,
-    },
-    {
-      id: 11,
-      task: "Ler e-mails",
-      category: "Trabalho",
-      completed: false,
-    },
-    {
-      id: 12,
-      task: "Trabalhar no projeto do website",
-      category: "Coding",
-      completed: false,
-    },
-    {
-      id: 13,
-      task: "Tomar remédio",
-      category: "Saúde",
-      completed: false,
-    },
-    {
-      id: 14,
-      task: "Ir para a academia",
-      category: "Fitness",
-      completed: false,
-    },
-    {
-      id: 15,
-      task: "Estudar para prova de cálculo",
-      category: "Educação",
-      completed: false,
-    },
-    {
-      id: 16,
-      task: "Pagar conta de luz",
-      category: "Finança",
-      completed: false,
-    },
-    
-    // Add more tasks as desired
-  ];
-  
-  // Define functions
-  const saveLocal = () => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  };
-  
-  const getLocal = () => {
-    const tasksLocal = JSON.parse(localStorage.getItem("tasks"));
-    if (tasksLocal) {
-      tasks = tasksLocal;
-    }
-  };
-  
-  const toggleScreen = () => {
-    screenWrapper.classList.toggle("show-category");
-  };
-  
-  const updateTotals = () => {
+  { title: "Pessoal", img: "boy.png", },
+  { title: "Educação", img: "education.png", },
+  { title: "Trabalho", img: "briefcase.png", },
+  { title: "Fitness", img: "dumbbell.png", },
+  { title: "Saúde", img: "healthcare.png", },
+  { title: "Compras", img: "shopping.png" },
+  { title: "Finança", img: "saving.png", },
+];
+
+let tasks = [
+  {
+    id: 1,
+    task: "Bem-vindo ao gyms-Task_Manager! Esta é a sua tarefa de boas-vindas. Clique no botão ' + ' no canto inferior direito para começar a criar suas próprias tarefas e organizá-las por categorias. Explore as categorias disponíveis e adicione novas tarefas para se manter no caminho certo. À medida que você avança, você pode marcar as tarefas como concluídas para acompanhar seu progresso. Agradeço por usar o gyms-Task_Manager. Se tiver sugestões de melhorias ou precisar de ajuda, entre em contato comigo pelo meu site guilhermeyukio.com.br .",
+    category: "Pessoal",
+    completed: false,
+  },
+];
+
+// Define functions
+const saveLocal = () => {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+
+const getLocal = () => {
+  const tasksLocal = JSON.parse(localStorage.getItem("tasks"));
+  if (tasksLocal) {
+    tasks = tasksLocal;
+  }
+};
+
+const toggleScreen = () => {
+  screenWrapper.classList.toggle("show-category");
+};
+
+const updateTotals = () => {
+  const categoryTasks = tasks.filter(
+    (task) =>
+      task.category.toLowerCase() === selectedCategory.title.toLowerCase()
+  );
+  numTasks.innerHTML = `${categoryTasks.length} Tasks`;
+  totalTasks.innerHTML = tasks.length;
+};
+
+const renderCategories = () => {
+  categoriesContainer.innerHTML = "";
+  categories.forEach((category) => {
     const categoryTasks = tasks.filter(
-      (task) =>
-        task.category.toLowerCase() === selectedCategory.title.toLowerCase()
+      (task) => task.category.toLowerCase() === category.title.toLowerCase()
     );
-    numTasks.innerHTML = `${categoryTasks.length} Tasks`;
-    totalTasks.innerHTML = tasks.length;
-  };
-  
-  const renderCategories = () => {
-    categoriesContainer.innerHTML = "";
-    categories.forEach((category) => {
-      const categoryTasks = tasks.filter(
-        (task) => task.category.toLowerCase() === category.title.toLowerCase()
-      );
-      const div = document.createElement("div");
-      div.classList.add("category");
-      div.addEventListener("click", () => {
-        screenWrapper.classList.toggle("show-category");
-        selectedCategory = category;
-        updateTotals();
-        categoryTitle.innerHTML = category.title;
-        categoryImg.src = `images/${category.img}`;
-        renderTasks();
-      });
-  
-      div.innerHTML = `
+    const div = document.createElement("div");
+    div.classList.add("category");
+    div.addEventListener("click", () => {
+      screenWrapper.classList.toggle("show-category");
+      selectedCategory = category;
+      updateTotals();
+      categoryTitle.innerHTML = category.title;
+      categoryImg.src = `images/${category.img}`;
+      renderTasks();
+    });
+
+    div.innerHTML = `
                     <div class="left">
                   <img src="images/${category.img}"
                    alt="${category.title}"
@@ -205,36 +88,36 @@ let categories = [
                   </div>
                 </div>
       `;
-  
-      categoriesContainer.appendChild(div);
-    });
-  };
-  
-  const renderTasks = () => {
-    tasksContainer.innerHTML = "";
-    const categoryTasks = tasks.filter(
-      (task) =>
-        task.category.toLowerCase() === selectedCategory.title.toLowerCase()
-    );
-    if (categoryTasks.length === 0) {
-      tasksContainer.innerHTML = `<p class="no-tasks">No tasks added for this category</p>`;
-    } else {
-      categoryTasks.forEach((task) => {
-        const div = document.createElement("div");
-        div.classList.add("task-wrapper");
-        const label = document.createElement("label");
-        label.classList.add("task");
-        label.setAttribute("for", task.id);
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.id = task.id;
-        checkbox.checked = task.completed;
-        checkbox.addEventListener("change", () => {
-          const index = tasks.findIndex((t) => t.id === task.id);
-          tasks[index].completed = !tasks[index].completed;
-          saveLocal();
-        });
-        div.innerHTML = `
+
+    categoriesContainer.appendChild(div);
+  });
+};
+
+const renderTasks = () => {
+  tasksContainer.innerHTML = "";
+  const categoryTasks = tasks.filter(
+    (task) =>
+      task.category.toLowerCase() === selectedCategory.title.toLowerCase()
+  );
+  if (categoryTasks.length === 0) {
+    tasksContainer.innerHTML = `<p class="no-tasks">No tasks added for this category</p>`;
+  } else {
+    categoryTasks.forEach((task) => {
+      const div = document.createElement("div");
+      div.classList.add("task-wrapper");
+      const label = document.createElement("label");
+      label.classList.add("task");
+      label.setAttribute("for", task.id);
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = task.id;
+      checkbox.checked = task.completed;
+      checkbox.addEventListener("change", () => {
+        const index = tasks.findIndex((t) => t.id === task.id);
+        tasks[index].completed = !tasks[index].completed;
+        saveLocal();
+      });
+      div.innerHTML = `
         <div class="delete">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -252,7 +135,7 @@ let categories = [
                   </svg>
                 </div>
                 `;
-        label.innerHTML = `
+      label.innerHTML = `
                 <span class="checkmark"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -271,85 +154,85 @@ let categories = [
                 </span>
                 <p>${task.task}</p>
           `;
-        label.prepend(checkbox);
-        div.prepend(label);
-        tasksContainer.appendChild(div);
-  
-        const deleteBtn = div.querySelector(".delete");
-        deleteBtn.addEventListener("click", () => {
-          const index = tasks.findIndex((t) => t.id === task.id);
-          tasks.splice(index, 1);
-          saveLocal();
-          renderTasks();
-        });
+      label.prepend(checkbox);
+      div.prepend(label);
+      tasksContainer.appendChild(div);
+
+      const deleteBtn = div.querySelector(".delete");
+      deleteBtn.addEventListener("click", () => {
+        const index = tasks.findIndex((t) => t.id === task.id);
+        tasks.splice(index, 1);
+        saveLocal();
+        renderTasks();
       });
-  
-      renderCategories();
-      updateTotals();
-    }
-  };
-  
-  const toggleAddTaskForm = () => {
-    addTaskWrapper.classList.toggle("active");
-    blackBackdrop.classList.toggle("active");
-    addTaskBtn.classList.toggle("active");
-  };
-  
-  const addTask = (e) => {
-    e.preventDefault();
-    const task = taskInput.value;
-    const category = categorySelect.value;
-  
-    if (task === "") {
-      alert("Please enter a task");
-    } else {
-      const newTask = {
-        id: tasks.length + 1,
-        task,
-        category,
-        completed: false,
-      };
-      taskInput.value = "";
-      tasks.push(newTask);
-      saveLocal();
-      toggleAddTaskForm();
-      renderTasks();
-    }
-  };
-  
-  // Initialize variables and DOM elements
-  let selectedCategory = categories[0];
-  const categoriesContainer = document.querySelector(".categories");
-  const screenWrapper = document.querySelector(".wrapper");
-  const menuBtn = document.querySelector(".menu-btn");
-  const backBtn = document.querySelector(".back-btn");
-  const tasksContainer = document.querySelector(".tasks");
-  const numTasks = document.getElementById("num-tasks");
-  const categoryTitle = document.getElementById("category-title");
-  const categoryImg = document.getElementById("category-img");
-  const categorySelect = document.getElementById("category-select");
-  const addTaskWrapper = document.querySelector(".add-task");
-  const addTaskBtn = document.querySelector(".add-task-btn");
-  const taskInput = document.getElementById("task-input");
-  const blackBackdrop = document.querySelector(".black-backdrop");
-  const addBtn = document.querySelector(".add-btn");
-  const cancelBtn = document.querySelector(".cancel-btn");
-  const totalTasks = document.getElementById("total-tasks");
-  
-  // Attach event listeners
-  menuBtn.addEventListener("click", toggleScreen);
-  backBtn.addEventListener("click", toggleScreen);
-  addTaskBtn.addEventListener("click", toggleAddTaskForm);
-  blackBackdrop.addEventListener("click", toggleAddTaskForm);
-  addBtn.addEventListener("click", addTask);
-  cancelBtn.addEventListener("click", toggleAddTaskForm);
-  
-  // Render initial state
-  getLocal();
-  renderTasks();
-  categories.forEach((category) => {
-    const option = document.createElement("option");
-    option.value = category.title.toLowerCase();
-    option.textContent = category.title;
-    categorySelect.appendChild(option);
-  });
+    });
+
+    renderCategories();
+    updateTotals();
+  }
+};
+
+const toggleAddTaskForm = () => {
+  addTaskWrapper.classList.toggle("active");
+  blackBackdrop.classList.toggle("active");
+  addTaskBtn.classList.toggle("active");
+};
+
+const addTask = (e) => {
+  e.preventDefault();
+  const task = taskInput.value;
+  const category = categorySelect.value;
+
+  if (task === "") {
+    alert("Please enter a task");
+  } else {
+    const newTask = {
+      id: tasks.length + 1,
+      task,
+      category,
+      completed: false,
+    };
+    taskInput.value = "";
+    tasks.push(newTask);
+    saveLocal();
+    toggleAddTaskForm();
+    renderTasks();
+  }
+};
+
+// Initialize variables and DOM elements
+let selectedCategory = categories[0];
+const categoriesContainer = document.querySelector(".categories");
+const screenWrapper = document.querySelector(".wrapper");
+const menuBtn = document.querySelector(".menu-btn");
+const backBtn = document.querySelector(".back-btn");
+const tasksContainer = document.querySelector(".tasks");
+const numTasks = document.getElementById("num-tasks");
+const categoryTitle = document.getElementById("category-title");
+const categoryImg = document.getElementById("category-img");
+const categorySelect = document.getElementById("category-select");
+const addTaskWrapper = document.querySelector(".add-task");
+const addTaskBtn = document.querySelector(".add-task-btn");
+const taskInput = document.getElementById("task-input");
+const blackBackdrop = document.querySelector(".black-backdrop");
+const addBtn = document.querySelector(".add-btn");
+const cancelBtn = document.querySelector(".cancel-btn");
+const totalTasks = document.getElementById("total-tasks");
+
+// Attach event listeners
+menuBtn.addEventListener("click", toggleScreen);
+backBtn.addEventListener("click", toggleScreen);
+addTaskBtn.addEventListener("click", toggleAddTaskForm);
+blackBackdrop.addEventListener("click", toggleAddTaskForm);
+addBtn.addEventListener("click", addTask);
+cancelBtn.addEventListener("click", toggleAddTaskForm);
+
+// Render initial state
+getLocal();
+renderTasks();
+categories.forEach((category) => {
+  const option = document.createElement("option");
+  option.value = category.title.toLowerCase();
+  option.textContent = category.title;
+  categorySelect.appendChild(option);
+});
