@@ -17,6 +17,10 @@ let tasks = [
   },
 ];
 
+window.onload = (event) => {
+  renderCategories();
+};
+
 // Define functions
 const saveLocal = () => {
   localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -44,22 +48,24 @@ const updateTotals = () => {
 
 const renderCategories = () => {
   categoriesContainer.innerHTML = "";
-  categories.forEach((category) => {
-    const categoryTasks = tasks.filter(
-      (task) => task.category.toLowerCase() === category.title.toLowerCase()
-    );
-    const div = document.createElement("div");
-    div.classList.add("category");
-    div.addEventListener("click", () => {
-      screenWrapper.classList.toggle("show-category");
-      selectedCategory = category;
-      updateTotals();
-      categoryTitle.innerHTML = category.title;
-      categoryImg.src = `images/${category.img}`;
-      renderTasks();
-    });
+  if (tasks.length > 0) {
 
-    div.innerHTML = `
+    categories.forEach((category) => {
+      const categoryTasks = tasks.filter(
+        (task) => task.category.toLowerCase() === category.title.toLowerCase()
+      );
+      const div = document.createElement("div");
+      div.classList.add("category");
+      div.addEventListener("click", () => {
+        screenWrapper.classList.toggle("show-category");
+        selectedCategory = category;
+        categoryTitle.innerHTML = category.title;
+        categoryImg.src = `images/${category.img}`;
+        renderTasks();
+      });
+      updateTotals();
+
+      div.innerHTML = `
                     <div class="left">
                   <img src="images/${category.img}"
                    alt="${category.title}"
@@ -89,8 +95,9 @@ const renderCategories = () => {
                 </div>
       `;
 
-    categoriesContainer.appendChild(div);
-  });
+      categoriesContainer.appendChild(div);
+    });
+  }
 };
 
 const renderTasks = () => {
@@ -99,9 +106,11 @@ const renderTasks = () => {
     (task) =>
       task.category.toLowerCase() === selectedCategory.title.toLowerCase()
   );
+  
   if (categoryTasks.length === 0) {
     tasksContainer.innerHTML = `<p class="no-tasks">No tasks added for this category</p>`;
   } else {
+    
     categoryTasks.forEach((task) => {
       const div = document.createElement("div");
       div.classList.add("task-wrapper");
@@ -112,11 +121,13 @@ const renderTasks = () => {
       checkbox.type = "checkbox";
       checkbox.id = task.id;
       checkbox.checked = task.completed;
+
       checkbox.addEventListener("change", () => {
         const index = tasks.findIndex((t) => t.id === task.id);
         tasks[index].completed = !tasks[index].completed;
         saveLocal();
       });
+
       div.innerHTML = `
         <div class="delete">
                   <svg
@@ -157,18 +168,20 @@ const renderTasks = () => {
       label.prepend(checkbox);
       div.prepend(label);
       tasksContainer.appendChild(div);
-
       const deleteBtn = div.querySelector(".delete");
+
       deleteBtn.addEventListener("click", () => {
         const index = tasks.findIndex((t) => t.id === task.id);
         tasks.splice(index, 1);
         saveLocal();
+        updateTotals();
         renderTasks();
+        renderCategories();
       });
     });
 
-    renderCategories();
     updateTotals();
+    renderCategories();
   }
 };
 
@@ -178,12 +191,14 @@ const toggleAddTaskForm = () => {
   addTaskBtn.classList.toggle("active");
 };
 
+// <===== Add Tasks =====>
+
 const addTask = (e) => {
   e.preventDefault();
   const task = taskInput.value;
   const category = categorySelect.value;
 
-  if (task === "") {
+  if (task === "" || category == "") {
     alert("Please enter a task");
   } else {
     const newTask = {
@@ -196,11 +211,13 @@ const addTask = (e) => {
     tasks.push(newTask);
     saveLocal();
     toggleAddTaskForm();
+    updateTotals();
     renderTasks();
+    renderCategories();
   }
 };
 
-// Initialize variables and DOM elements
+// <===== Initialize variables and DOM elements =====>
 let selectedCategory = categories[0];
 const categoriesContainer = document.querySelector(".categories");
 const screenWrapper = document.querySelector(".wrapper");
@@ -219,7 +236,7 @@ const addBtn = document.querySelector(".add-btn");
 const cancelBtn = document.querySelector(".cancel-btn");
 const totalTasks = document.getElementById("total-tasks");
 
-// Attach event listeners
+// <===== Attach event listeners =====>
 menuBtn.addEventListener("click", toggleScreen);
 backBtn.addEventListener("click", toggleScreen);
 addTaskBtn.addEventListener("click", toggleAddTaskForm);
@@ -227,7 +244,7 @@ blackBackdrop.addEventListener("click", toggleAddTaskForm);
 addBtn.addEventListener("click", addTask);
 cancelBtn.addEventListener("click", toggleAddTaskForm);
 
-// Render initial state
+// <===== Render initial state =====>
 getLocal();
 renderTasks();
 categories.forEach((category) => {
