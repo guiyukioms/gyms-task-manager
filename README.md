@@ -5,17 +5,25 @@
 </div>
 
 <br>
-Um aplicativo simples de gerenciamento de tarefas projetado para auxiliar na organização de atividades diárias de forma eficiente. Com uma interface limpa e fácil de usar, você pode categorizar suas tarefas, acompanhar seu progresso e manter-se organizado.
+Um aplicativo simples de gerenciamento de tarefas projetado para auxiliar na organização de atividades diárias. Com uma interface simples, é possível categorizar tarefas, acompanhar seu progresso e manter-se organizado.
 <br>
 
-![Imagem do gyms-Task_Manager](assets/screenshot.png)
+![Imagem do gyms-Task_Manager](./images/task-manager.png)
 
 ## Sumário
 
+- [Tecnologias Usadas](#tecnologias-usadas)
 - [Principais Recursos](#principais-recursos)
+- [Funcionalidades Pendentes](#funcionalidades-pendentes)
 - [Acessar o Aplicativo](#acessar-o-aplicativo)
-- [Download do Projeto](#download-do-projeto)
 - [Contribuições](#contribuições)
+
+
+## Tecnologias Usadas
+
+- **HTML**: Estruturação do conteúdo e das páginas.
+- **CSS**: Estilização e layout das páginas.
+- **JavaScript**: Funcionalidade e interatividade do aplicativo.
 
 
 ## Principais Recursos
@@ -25,18 +33,18 @@ Um aplicativo simples de gerenciamento de tarefas projetado para auxiliar na org
 - **Categorias pré-definidas**: Utilize categorias pré-configuradas e adicione novas tarefas conforme necessário.
 
 
+## Funcionalidades Pendentes
+
+- **Botão de Configuração**: O botão de três pontos atualmente não possui funcionalidades associadas.
+- **Menu de Interação**: Não há um menu de interação implementado no momento. Apenas as funcionalidades básicas de gerenciamento de tarefas estão disponíveis.
+
+
 ## Acessar o Aplicativo
 
 O aplicativo está disponível online. Pode ser acessado através do link abaixo:
 
-- [Acesse o gyms-Task_Manager](https://)
+- [Acesse o gyms-Task_Manager](https://guiyukioms.github.io/gyms-task-manager)
 
-
-## Download do Projeto
-
-O projeto está disponível para dowload através do link abaixo:
-
-- [Download do Projeto](https://github.com/seu-usuario/gyms-task-manager/archive/refs/heads/main.zip)
 
 
 ## Contribuições
@@ -54,7 +62,7 @@ Contribuições são bem-vindas! Se você gostaria de contribuir para o **gyms-T
    Clone o repositório para sua máquina local:
 
 ```
-   git clone https://github.com/seu-usuario/gyms-task-manager.git
+   git clone https://github.com/seu-usuario/gyms-task-manager
 ```
 <br>
 

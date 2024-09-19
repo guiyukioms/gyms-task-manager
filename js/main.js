@@ -72,7 +72,7 @@ const renderCategories = () => {
                     />
                   <div class="content">
                     <h1>${category.title}</h1>
-                    <p>${categoryTasks.length} Tasks</p>
+                    <p>${categoryTasks.length} Tarefas</p>
                   </div>
                 </div>
                 <div class="options">
@@ -108,7 +108,7 @@ const renderTasks = () => {
   );
   
   if (categoryTasks.length === 0) {
-    tasksContainer.innerHTML = `<p class="no-tasks">No tasks added for this category</p>`;
+    tasksContainer.innerHTML = `<p class="no-tasks">Você ainda não tem tarefas nesta categoria</p>`;
   } else {
     
     categoryTasks.forEach((task) => {
