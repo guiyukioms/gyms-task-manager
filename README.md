@@ -6,9 +6,12 @@
 
 <br>
 Um aplicativo simples de gerenciamento de tarefas projetado para auxiliar na organização de atividades diárias. Com uma interface simples, é possível categorizar tarefas, acompanhar seu progresso e manter-se organizado.
-<br>
 
-![Imagem do gyms-Task_Manager](./images/task-manager.png)
+<br><br>
+<div align="center">
+  <img src="./images/task-manager.png" alt="Imagem do gyms-Task_Manager">
+</div>
+<br><br>
 
 ## Sumário
 
